@@ -1,0 +1,24 @@
+﻿# Claude Code / editor
+.claude/settings.local.json
+.vscode/
+.idea/
+
+# Secretos y archivos locales
+.env
+.env.*
+*.local.json
+*.key
+*.pem
+*.pfx
+*.p12
+secrets.json
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporales
+*.tmp
+*.bak
+*~
