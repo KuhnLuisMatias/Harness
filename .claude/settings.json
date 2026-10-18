@@ -11,7 +11,6 @@
       "Bash(git show:*)",
       "Bash(dotnet build:*)",
       "Bash(dotnet test:*)",
-      "Bash(dotnet run:*)",
       "Bash(dotnet format --verify-no-changes:*)"
     ],
     "ask": [
@@ -21,7 +20,19 @@
       "Bash(rm:*)",
       "Bash(rmdir:*)",
       "Bash(dotnet ef migrations add:*)",
-      "Bash(dotnet ef database update:*)"
+      "Bash(dotnet ef database update:*)",
+      "Bash(dotnet run:*)",
+
+      "Edit(CLAUDE.md)",
+      "Write(CLAUDE.md)",
+      "Edit(**/ISA.md)",
+      "Write(**/ISA.md)",
+      "Edit(**/PLAN.md)",
+      "Write(**/PLAN.md)",
+      "Edit(docs/adr/**)",
+      "Write(docs/adr/**)",
+      "Edit(docs/LECCIONES.md)",
+      "Write(docs/LECCIONES.md)"
     ],
     "deny": [
       "Bash(git commit:*)",
@@ -31,15 +42,19 @@
       "Bash(git clean:*)",
       "Bash(git checkout:*)",
       "Bash(git restore:*)",
+      "Bash(git switch:*)",
+      "Bash(git merge:*)",
+      "Bash(git pull:*)",
+      "Bash(git revert:*)",
+      "Bash(git cherry-pick:*)",
+      "Bash(git apply:*)",
+      "Bash(git am:*)",
       "Bash(git stash drop:*)",
       "Bash(git stash clear:*)",
+      "Bash(dotnet ef database drop:*)",
 
       "Edit(.claude/**)",
       "Write(.claude/**)",
-      "Edit(**/PLAN.md)",
-      "Edit(**/ISA.md)",
-      "Write(**/PLAN.md)",
-      "Write(**/ISA.md)",
 
       "Read(**/.env)",
       "Read(**/.env.*)",
@@ -52,8 +67,11 @@
       "Read(**/credentials.json)",
       "Read(**/service-account*.json)",
       "Read(**/.aws/credentials)",
+      "Read(**/.microsoft/usersecrets/**)",
+      "Read(**/Microsoft/UserSecrets/**)",
       "Read(**/appsettings.Production.json)",
-      "Read(**/appsettings.*.json)"
+      "Read(**/appsettings.Staging.json)",
+      "Read(**/appsettings.Local.json)"
     ]
   }
 }

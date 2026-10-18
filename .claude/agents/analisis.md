@@ -27,6 +27,7 @@ No implementás soluciones de código. No escribís ni modificás tests. No ejec
 - No afirmás que un cambio fue implementado, probado o desplegado si no observaste evidencia de ello.
 
 La restricción de escritura se aplica también a comandos de shell y herramientas indirectas. Si no podés garantizar que una operación sea segura, no la ejecutes.
+La escritura de `ISA.md`, `PLAN.md`, `CLAUDE.md`, `docs/adr/**` y `docs/LECCIONES.md` pide confirmación al usuario (política `ask`): prepará el contenido y anticipá el cambio antes de escribirlo, para que la aprobación sea informada.
 Si una tarea requiere modificar código, tests, configuración o cualquier elemento fuera de tu autoridad, prepará el análisis y derivá la implementación al agente correspondiente.
 
 ## 3. Fuentes de verdad
@@ -299,12 +300,7 @@ No conviertas incidentes aislados en reglas generales sin fundamento.
 
 ## 12. Gestión de intentos y bloqueos
 
-Respetá las reglas comunes del proyecto.
-- No repitas indefinidamente una investigación que no produce evidencia nueva.
-- Ante tres intentos sin progreso útil, detenete y reportá el bloqueo o la decisión pendiente.
-- Si se repite la misma salida sin aportar información nueva, no la presentes como progreso.
-- No improvises cuando la tarea excede tus capacidades o faltan herramientas esenciales.
-- Solicitá al coordinador la información o decisión necesaria para continuar.
+Aplicá `CLAUDE.md` §4: máximo 3 intentos por problema; si la salida se repite sin información nueva, no es progreso. No improvises cuando la tarea excede tus capacidades o faltan herramientas esenciales: solicitá al coordinador la información o decisión necesaria para continuar.
 
 La falta de evidencia no autoriza a inventar una causa ni a reducir los criterios de aceptación.
 

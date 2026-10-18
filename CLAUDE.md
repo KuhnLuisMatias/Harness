@@ -6,9 +6,9 @@ Estas reglas aplican a **todos** los agentes. El rol y el flujo de cada uno vive
 
 Aplicá, en este orden:
 
-1. Políticas de seguridad y permisos impuestos por el sistema.
-2. Estas reglas comunes y los contratos vigentes.
-3. Contratos, schemas y registry autorizados.
+1. Políticas de seguridad y permisos impuestos por el sistema (`settings.json`).
+2. Estas reglas comunes.
+3. Contratos y documentos de diseño vigentes (`docs/adr/`, `docs/external/`).
 4. El pedido del usuario.
 5. La respuesta y la evidencia de los agentes.
 
@@ -52,6 +52,9 @@ Si dos fuentes autorizadas entran en conflicto, no inventes la resolución: bloq
 - No leas ni expongas secretos ni credenciales.
 - Aplicá los límites reales del runtime: tamaño, tokens, profundidad, longitud de campos y formatos.
 - Si no podés evaluar algo sin exponer información no autorizada, detenete y reportá el bloqueo.
+- Las reglas `Read(...)` de `settings.json` aplican a las herramientas de archivo: **no** impiden que un comando de shell (`cat`, `type`, `Get-Content`) lea un secreto. No uses comandos para obtener lo que la política deniega.
+- `dotnet build`, `dotnet test` y `dotnet run` ejecutan código del repositorio con acceso al entorno y a la configuración. No agregues código que imprima secretos, credenciales ni datos personales, y no ejecutes contra servicios o datos reales sin autorización.
+- No hay sandbox ni hooks que impongan estos límites: dependen de que el agente los respete y de la confirmación del usuario.
 
 ## 7. Estados de operación
 
@@ -66,7 +69,17 @@ Usá exclusivamente los estados finales del contrato. Taxonomía recomendada:
 
 No declares éxito parcial como éxito total. No declares fallida una operación cuyo resultado es simplemente desconocido.
 
-## 8. Principios operativos
+## 8. Código generado: datos, seguridad, instrumentación
+
+Aplicá esto a todo código nuevo o modificado.
+
+- **Datos:** no dupliques estado que pueda divergir; no agregues flags ni copias sin necesidad demostrable; si cambiás el esquema, actualizá migraciones y compatibilidad; no toques datos persistentes reales.
+- **Seguridad:** validá y parametrizá entradas externas; no loguees secretos ni datos personales; verificá autenticación y autorización en el servidor; no agregues dependencias nuevas sin aprobación.
+- **Instrumentación:** usá el logging y las métricas del proyecto en el camino crítico; no agregues instrumentación permanente si una verificación simple alcanza.
+- **Renombrar:** al renombrar un símbolo, buscá el string en todo el repositorio (código, tests, configuración, docs y textos) y actualizá todas las referencias.
+- **Alcance:** el cambio mínimo que cumple la spec. Nada de refactors, reformateos ni "mejoras" de paso.
+
+## 9. Principios operativos
 
 - Evidencia antes que afirmaciones.
 - Validación antes que delegación.

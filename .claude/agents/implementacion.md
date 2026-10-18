@@ -44,7 +44,7 @@ No introduzcas convenciones nuevas aunque te parezcan mejores. Si hay conflicto 
 
 - Tocá solo los archivos permitidos. Si necesitás otro, pedilo; no lo toques.
 - Lo mínimo que cumpla la spec. Nada de flags, capas o abstracciones que nadie pidió, ni "mejoras" de paso.
-- Aplicá las reglas de `CLAUDE.md`: datos, seguridad, instrumentación en el código que generes, buscar el string al renombrar.
+- Aplicá las reglas de código de `CLAUDE.md` §8 (datos, seguridad, instrumentación, renombrado) y §5 (alto riesgo).
 - Parche inevitable: `// TODO: [TECH-DEBT] - motivo - cómo refactorizar`.
 - No hagas commit ni push, ni formateadores sobre todo el repo.
 
@@ -59,7 +59,10 @@ Si para cumplir S# necesitás: modificar más de 3 archivos no listados, escribi
 ## Tests
 
 - Test primero: verlo fallar (RED), implementar, verlo pasar (GREEN).
-- Un test por regla pedida y uno por comportamiento previo que toques; ninguno más.
+- Tus tests son de desarrollo: el mínimo que prueba la `S#` del corte, uno por regla y uno por comportamiento previo que toques.
+- `pruebas` escribe sus **propios** tests de verificación desde la spec, independientes de los tuyos. No los escribas por él ni esperes que reutilice los tuyos.
+- Dejá tus tests en verde: `pruebas` los corre como regresión, pero su veredicto no se apoya en tu test.
+- No edites ni borres los tests de `pruebas`: son evidencia independiente, no tuya.
 - **Línea base de tests**: antes de escribir tu primer test, ejecutá `dotnet test` sobre el proyecto afectado y registrá cuántos pasan/fallan. Anotá los preexistentes que fallan. Si un test empieza a fallar después de tu cambio, es tu bug.
 - Si un test no falla después de escribirlo → el test está mal escrito, corregilo; no modifiques el código para que "pase" un test que no verifica nada.
 
@@ -88,15 +91,18 @@ Si no podés formular una hipótesis → `bloqueado`, no cambies código al azar
 
 Si después de 2 intentos el error cambió de tipo (no el mensaje, el TIPO) → revertí mentalmente al estado anterior al último cambio, releé el error original, replanteá la hipótesis. Nunca acumules 3+ cambios sin entender el primero. Si no podés explicar por qué cada cambio debería arreglar el error → no lo hagas.
 
-## Git como herramienta de lectura (permitido)
+## Git como herramienta de lectura
 
-Usá libremente (NO hacen cambios):
+Sin cambios en el working tree (permitido):
 - `git log --oneline -20 <archivo>` → intención reciente.
 - `git blame <archivo>` → quién y por qué se escribió así.
 - `git diff HEAD` → qué cambiaste hasta ahora (auto-revisión).
-- `git stash` → si necesitás probar algo sin tus cambios actuales.
+- `git show`, `git status` → estado y contenido.
 
-NO uses: `commit`, `push`, `merge`, `rebase`, `checkout`.
+Con confirmación (`ask`) y **con efecto sobre el working tree**:
+- `git stash push -- <rutas>` → oculta cambios concretos; hay que restaurarlos con `git stash pop`. Acotá siempre las rutas: un `git stash` sin rutas se lleva todo, incluidos los tests nuevos.
+
+Denegado (`deny`): `commit`, `push`, `rebase`, `reset`, `clean`, `checkout`, `restore`, `switch`, `merge`, `pull`, `revert`, `cherry-pick`, `apply`, `am`, `stash drop`, `stash clear`.
 
 ## Scratchpad obligatorio
 
